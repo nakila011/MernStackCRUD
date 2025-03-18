@@ -12,8 +12,8 @@ const schemaData = mongoose.Schema({
     name : String,
     course : String,
     email : String,
-    idNumber: Number,
-    mobile: Number, 
+    idNumber: String,
+    mobile: String, 
 },{
     timestamps : true
 })
@@ -59,11 +59,11 @@ app.post("/create",async(req,res)=>{
 */
 app.put("/update",async(req,res)=>{
     console.log(req.body)
-    const {id,...rest} = req.body
+    const {_id,...rest} = req.body
 
     console.log(rest)
-   const data = await userModel.updateOne({_id : id},rest)
-    res.send({success : true, message: "data update succsefully", data : data})
+   const data = await userModel.updateOne({_id : _id},rest)
+    res.send({success : true, message: "data update succsefully", _data : data})
 })
 
 //delete api
@@ -78,7 +78,7 @@ app.delete("/delete/:id",async(req,res)=>{
 mongoose.connect("mongodb://localhost:27017/crud-operation")
 .then(()=>{
     console.log("connect to DB")
-    app.listen(PORT,() => console.log("Server is Running"))
+    app.listen(PORT,() => console.log("Server is Running in browser"))
 })
 .catch((err)=> console.log(err))
 
